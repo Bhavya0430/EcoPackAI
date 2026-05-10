@@ -38,7 +38,7 @@ st.caption("Track all eco-friendly packaging recommendations made so far")
 # ================= LOAD DATA =================
 
 try:
-    res = requests.get("http://127.0.0.1:5000/history")
+    res = requests.get("http://ecopackai-dhad.onrender.com/history")
     history = res.json()["history"]
 except:
     st.error("❌ Unable to connect to backend")
