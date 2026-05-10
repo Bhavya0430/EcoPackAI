@@ -51,7 +51,7 @@ st.caption("Understanding eco-driven packaging choices")
 st.divider()
 
 # ================= LOAD DATA =================
-res = requests.get("http://ecopackai-dhad.onrender.com/history")
+res = requests.get("https://ecopackai-dhad.onrender.com/history")
 data = res.json()
 
 if "history" not in data or len(data["history"]) == 0:
