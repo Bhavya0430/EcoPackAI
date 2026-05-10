@@ -7,14 +7,14 @@ app = Flask(__name__)
 CORS(app)
 
 # ---------------- DATABASE CONNECTION ----------------
-conn = psycopg2.connect(
-    dbname="ecopackai",
-    user="postgres",
-    password="anits",   # change if needed
-    host="localhost",
-    port="5432"
-)
-cursor = conn.cursor()
+#conn = psycopg2.connect(
+    #dbname="ecopackai",
+    #user="postgres",
+    #password="anits",   # change if needed
+    #host="localhost",
+    #port="5432"
+#)
+#cursor = conn.cursor()
 
 # ---------------- RECOMMEND API ----------------
 @app.route("/recommend", methods=["POST"])
