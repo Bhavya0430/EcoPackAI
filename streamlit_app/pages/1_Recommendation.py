@@ -107,7 +107,7 @@ if st.button("🚀 Get Smart Recommendation", use_container_width=True):
 
     try:
         res = requests.post(
-            "https://ecopackai-dhad.onrender.com/recommend",
+            "http://127.0.0.1:10000/recommend",
             json=payload,
             timeout=10
         )

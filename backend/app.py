@@ -7,14 +7,15 @@ app = Flask(__name__)
 CORS(app)
 
 # ---------------- DATABASE CONNECTION ----------------
-#conn = psycopg2.connect(
-    #dbname="ecopackai",
-    #user="postgres",
-    #password="anits",   # change if needed
-    #host="localhost",
-    #port="5432"
-#)
-#cursor = conn.cursor()
+conn = psycopg2.connect(
+    dbname="ecopackai",
+    user="postgres",
+    password="anits",
+    host="localhost",
+    port="5432"
+)
+
+cursor = conn.cursor()
 
 # ---------------- RECOMMEND API ----------------
 @app.route("/recommend", methods=["POST"])
@@ -34,7 +35,6 @@ def recommend():
         best = result["best_material"]
         top3 = result["top_3_materials"]
 
-        # Save history safely
         cursor.execute("""
             INSERT INTO recommendation_history
             (product_form, fragility_level, eco_priority,
@@ -48,6 +48,7 @@ def recommend():
             best["material_name"],
             ", ".join([m["material_name"] for m in top3])
         ))
+
         conn.commit()
 
         return jsonify({
@@ -71,9 +72,11 @@ def history():
             FROM recommendation_history
             ORDER BY created_at DESC
         """)
+
         rows = cursor.fetchall()
 
         history_data = []
+
         for r in rows:
             history_data.append({
                 "product_form": r[0],
@@ -85,7 +88,9 @@ def history():
                 "time": r[6].strftime("%Y-%m-%d %H:%M:%S")
             })
 
-        return jsonify({"history": history_data})
+        return jsonify({
+            "history": history_data
+        })
 
     except Exception as e:
         print("❌ HISTORY ERROR:", e)
